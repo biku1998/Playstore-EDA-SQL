@@ -107,7 +107,14 @@ code {
             <h4><li>Size attribute is of type String. We will convert all the size to MB i.e mega byte and then in Integer</li></h4>
             <h4><li>Installs attribute is in String. We have to preprocess the String to remove "+" and "," sign then convert the size to Integer</li></h4>
           </ul>
+          <br><br>
 
+          <code>
+            SELECT ID, App, Category, Rating, Reviews, IIF(App_size Like "%M%",Round(Int(Left(App_size,len(App_size)-1)),1)
+            ,IIF(App_size Like "%K%",Round(Int(Left(App_size,len(App_size)-1))/1024,2),0)) AS App_size, IIF(Installs Like "%+%",Int(Left(Installs,len(Installs)-1)),0) AS Installs, Type, Price, [Content Rating], Genres, [Last Updated], [Current Ver], [Android ver] INTO AppStore
+            FROM AppStore_OLD;
+
+          </code>
           <h3>Observations </h3>
 
           <ul>
